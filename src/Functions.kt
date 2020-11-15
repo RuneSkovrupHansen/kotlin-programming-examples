@@ -20,11 +20,25 @@ fun main() {
     defaultParametersFunction()
     // Hi Rune, What is up?
 
+    variableArgumentFunction(1, 2, 3, 4)
+    // 1
+    // 2
+    // 3
+    // 4
+
+    println(genericFunction(1, 2, 3, 4).toString())
+    // [1, 2, 3, 4]
+
+    println(genericFunction("one", "two", "three", "four").toString())
+    // [one, two, three, four]
+
+
+
 }
 
 /* The overall syntax for functions is:
 
-fun <function name>: <return type> (<parameters>): <type> { // Function header
+fun <function name>(<parameters>): <return type>  { // Function header
     // Function body
 }
  */
@@ -89,5 +103,31 @@ fun defaultParametersFunction(name: String = "Rune", greeting: String = "What is
 // defaultParametersFunction(greeting="How's it going?")
 // Hi Rune, How's it going?
 
-// It should be noted that named parameters after non-named parameters
+// It should be noted that named parameters must be placed after non-named parameters
 
+/* Note that all of the functions above does not have an explicit return type. When not specified the default return
+type is Unit, which is similar to null. The Unit return type can be explicitly specified.
+ */
+
+/* To specify an unknown number of arguments the varargs modifier can be used. It makes it possible to pass any number
+of arguments to the function. The varargs argument is usually passed as the last argument to avoid confusion, but it
+can also be passed earlier is subsequent arguments are referred to by name.
+
+Arguments can be passed one-by-one to the function, of if they are already in a list which we pass them using the spread
+operator - prefixing the array with "*" which is the spread operator.
+ */
+
+fun variableArgumentFunction(vararg numbers: Int) {
+    for (number in numbers) println(number)
+}
+
+fun <T> genericFunction(vararg ts: T): List<T> {
+    val result = ArrayList<T>()
+    for (t in ts) result.add(t)
+    return result
+}
+
+/* The above function is a generic function, which means that multiple types can be passed to the function. To
+make a generic function the generic type parameter <T> must be placed before the name of the function. Generics are
+usually given a single letter name.
+ */
